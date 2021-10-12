@@ -389,9 +389,21 @@ namespace NetCoreServer
         {
             var buffer = new byte[size];
             var length = Receive(buffer);
-            string resultStr = Encoding.UTF8.GetString(buffer, 0, (int)length);
-            Debug.Print(resultStr);
-            return resultStr;
+
+            // 使用字符串解析
+            //string message = Encoding.UTF8.GetString(buffer, 0, (int)length);
+            //Debug.Print(message);
+
+            // 使用Protobuf解析
+            string message = string.Empty;
+            if (length > 0)
+            {
+                Google.Protobuf.Login msg2 = ProtobufferTool.Deserialize<Google.Protobuf.Login>(buffer);
+                message = $"账号{msg2.Username}，密码{msg2.Password}";
+                Debug.Print(message);
+            }
+
+            return message;
         }
 
         /// <summary>
