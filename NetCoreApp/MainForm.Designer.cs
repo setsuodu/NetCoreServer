@@ -6,6 +6,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using LiteNetLib;
+using LibSample;
 
 namespace WinFormsApp1
 {
@@ -68,23 +70,26 @@ namespace WinFormsApp1
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(142, 184);
+            this.label1.Location = new System.Drawing.Point(183, 216);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 17);
+            this.label1.Size = new System.Drawing.Size(83, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "MongoDB";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(142, 267);
+            this.button1.Location = new System.Drawing.Point(183, 314);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(96, 27);
             this.button1.TabIndex = 1;
             this.button1.Text = "连接";
             this.button1.UseVisualStyleBackColor = true;
@@ -99,12 +104,13 @@ namespace WinFormsApp1
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
             this.exitToolStripMenuItem,
             this.connectToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(129, 76);
             // 
             // showToolStripMenuItem
             // 
@@ -112,54 +118,67 @@ namespace WinFormsApp1
             this.maxToolStripMenuItem,
             this.windowToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.showToolStripMenuItem.Text = "显示";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
             // maxToolStripMenuItem
             // 
             this.maxToolStripMenuItem.Name = "maxToolStripMenuItem";
-            this.maxToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.maxToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.maxToolStripMenuItem.Text = "Max";
             // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.exitToolStripMenuItem.Text = "退出";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.connectToolStripMenuItem.Text = "连接DB";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.ConnectToolStripMenuItem_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(132, 357);
+            this.button2.Location = new System.Drawing.Point(170, 420);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 23);
+            this.button2.Size = new System.Drawing.Size(121, 27);
             this.button2.TabIndex = 2;
             this.button2.Text = "Start Server";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(183, 518);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(94, 29);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "NAT";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 665);
+            this.ClientSize = new System.Drawing.Size(472, 782);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "Winform+NetCore3.1+MongoDB";
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
@@ -215,11 +234,17 @@ namespace WinFormsApp1
             Debug.Print($"result={result.CountDocuments()}");
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void Button2_Click(object sender, System.EventArgs e)
         {
             Debug.Print($"启动服务器");
 
             TcpChatServer.TCPChatServer.Run();
+        }
+       
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            var lib = new HolePunchServerTest();
+            lib.Run();
         }
 
         #endregion
@@ -234,5 +259,6 @@ namespace WinFormsApp1
         private ToolStripMenuItem windowToolStripMenuItem;
         private ToolStripMenuItem connectToolStripMenuItem;
         private Button button2;
+        private Button button3;
     }
 }
