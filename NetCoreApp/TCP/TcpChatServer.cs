@@ -84,8 +84,8 @@ namespace TcpChatServer
 
     public class TCPChatServer
     {
-        protected static ChatServer server;
         protected const int port = 1111;
+        public static ChatServer server;
 
         public static ServerRoomManager m_RoomManager;
         public static ServerPlayerManager m_PlayerManager;

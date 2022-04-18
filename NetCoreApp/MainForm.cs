@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -44,7 +37,7 @@ namespace WinFormsApp1
             }
         }
 
-        //当鼠标点击托管图标时触发
+        // 点击托管图标时触发
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) //当鼠标点击为左键时
@@ -60,6 +53,7 @@ namespace WinFormsApp1
             }
         }
 
+        // 双击托管图标时触发
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             Debug.Print("双击");
@@ -104,6 +98,11 @@ namespace WinFormsApp1
                 //this.Close();
                 Debug.Print("关闭服务器");
             }
+        }
+
+        private void logText_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
