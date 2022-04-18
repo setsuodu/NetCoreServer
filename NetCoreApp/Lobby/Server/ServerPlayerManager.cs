@@ -19,9 +19,9 @@ namespace NetCoreServer
             player.ResetToLobby();
         }
         // µÇ³ö/¶ÏÏß/ÌßÈË
-        public void RemovePlayer(int peerId)
+        public void RemovePlayer(System.Guid peerId)
         {
-            var player = playerList.Find(x => x.PeerId == peerId);
+            var player = playerList.Find(x => x.SessionId == peerId);
             if (player == null) return;
             playerList.Remove(player);
         }

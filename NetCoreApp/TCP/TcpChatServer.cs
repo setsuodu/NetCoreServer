@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
+using System.Net.Sockets;
 using System.Diagnostics;
 using NetCoreServer;
 
@@ -15,6 +15,9 @@ namespace TcpChatServer
         protected override void OnConnected()
         {
             Debug.Print($"Chat TCP session with Id {Id} connected!");
+            ServerPlayer p = new ServerPlayer(string.Empty, Id);
+            TCPChatServer.m_PlayerManager.AddPlayer(p);
+            //p.SetStatus(PlayerStatus.AtLobby);
 
             // Send invite message
             string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
@@ -24,6 +27,8 @@ namespace TcpChatServer
         protected override void OnDisconnected()
         {
             Debug.Print($"Chat TCP session with Id {Id} disconnected!");
+
+            TCPChatServer.m_PlayerManager.RemovePlayer(Id);
         }
 
         protected override void OnReceived(byte[] buffer, long offset, long size)
@@ -80,13 +85,16 @@ namespace TcpChatServer
     public class TCPChatServer
     {
         protected static ChatServer server;
+        protected const int port = 1111;
+
+        public static ServerRoomManager m_RoomManager;
+        public static ServerPlayerManager m_PlayerManager;
 
         public static void Run()
         {
-            // TCP server port
-            int port = 1111;
-
-            Debug.Print($"TCP server port: {port}");
+            m_RoomManager = new ServerRoomManager();
+            m_PlayerManager = new ServerPlayerManager();
+            Debug.Print("TCPChatServer Init...");
 
             // Create a new TCP chat server
             server = new ChatServer(IPAddress.Any, port);
@@ -95,8 +103,6 @@ namespace TcpChatServer
             Debug.Print("Server starting...");
             server.Start();
             Debug.Print("Done!");
-
-            Debug.Print("Press Enter to stop the server or '!' to restart the server...");
 
             /*
             // Perform text input
@@ -119,14 +125,8 @@ namespace TcpChatServer
                 line = "(admin) " + line;
                 server.Multicast(line);
             }
-
-            // Stop the server
-            Debug.Print("Server stopping...");
-            server.Stop();
-            Debug.Print("Done!");
             */
         }
-
         public static void Stop()
         {
             // Stop the server

@@ -14,14 +14,16 @@
         public byte RoleIndex = 0; //角色编号（默认）
         public byte RoleColor = 0; //角色颜色
         public byte RoleCloth = 0; //角色时装
-        private string name;
         public readonly string UserName; //用户名
         public readonly string NickName; //昵称
         public readonly short PeerId; //连接ID
-        protected BasePlayer(string userName, int peerid)
+        public readonly System.Guid SessionId; //连接ID
+
+        protected BasePlayer(string userName, System.Guid peerid)
         {
             UserName = userName;
-            PeerId = (short)peerid;
+            //PeerId = (short)peerid;
+            SessionId = peerid;
             ResetToLobby(); //登录成功创建的，已经在大厅
         }
 

@@ -55,7 +55,10 @@ namespace WinFormsApp1
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.title = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.connectBtn = new System.Windows.Forms.Button();
+            this.startServerBtn = new System.Windows.Forms.Button();
+            this.stopServerBtn = new System.Windows.Forms.Button();
+            this.onlineNumBtn = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,9 +66,6 @@ namespace WinFormsApp1
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startServerBtn = new System.Windows.Forms.Button();
-            this.stopServerBtn = new System.Windows.Forms.Button();
-            this.onlineNumBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,16 +81,65 @@ namespace WinFormsApp1
             this.title.Text = "NetCoreServer";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // connectBtn
             // 
-            this.button1.Location = new System.Drawing.Point(180, 280);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 30);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "连接";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.DB_Click);
+            this.connectBtn.Location = new System.Drawing.Point(180, 280);
+            this.connectBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.connectBtn.Name = "connectBtn";
+            this.connectBtn.Size = new System.Drawing.Size(100, 30);
+            this.connectBtn.TabIndex = 1;
+            this.connectBtn.Text = "连接";
+            this.connectBtn.UseVisualStyleBackColor = true;
+            this.connectBtn.Click += new System.EventHandler(this.DB_Click);
+            // 
+            // startServerBtn
+            // 
+            this.startServerBtn.Location = new System.Drawing.Point(170, 400);
+            this.startServerBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.startServerBtn.Name = "startServerBtn";
+            this.startServerBtn.Size = new System.Drawing.Size(120, 30);
+            this.startServerBtn.TabIndex = 2;
+            this.startServerBtn.Text = "Start Server";
+            this.startServerBtn.UseVisualStyleBackColor = true;
+            this.startServerBtn.Click += new System.EventHandler(this.StartServer_Click);
+            // 
+            // stopServerBtn
+            // 
+            this.stopServerBtn.Location = new System.Drawing.Point(170, 450);
+            this.stopServerBtn.Name = "stopServerBtn";
+            this.stopServerBtn.Size = new System.Drawing.Size(120, 30);
+            this.stopServerBtn.TabIndex = 3;
+            this.stopServerBtn.Text = "Stop Server";
+            this.stopServerBtn.UseVisualStyleBackColor = true;
+            this.stopServerBtn.Click += new System.EventHandler(this.StopServer_Click);
+            // 
+            // onlineNumBtn
+            // 
+            this.onlineNumBtn.Location = new System.Drawing.Point(170, 500);
+            this.onlineNumBtn.Name = "onlineNumBtn";
+            this.onlineNumBtn.Size = new System.Drawing.Size(120, 30);
+            this.onlineNumBtn.TabIndex = 4;
+            this.onlineNumBtn.Text = "在线人数";
+            this.onlineNumBtn.UseVisualStyleBackColor = true;
+            this.onlineNumBtn.Click += new System.EventHandler(this.OnlineNum_Click);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(462, 673);
+            this.Controls.Add(this.onlineNumBtn);
+            this.Controls.Add(this.stopServerBtn);
+            this.Controls.Add(this.startServerBtn);
+            this.Controls.Add(this.connectBtn);
+            this.Controls.Add(this.title);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "MainForm";
+            this.Text = "Winform+NetCore3.1+MongoDB";
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
             // 
             // notifyIcon1
             // 
@@ -144,55 +193,6 @@ namespace WinFormsApp1
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.connectToolStripMenuItem.Text = "连接DB";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.ConnectToolStripMenuItem_Click);
-            // 
-            // startServerBtn
-            // 
-            this.startServerBtn.Location = new System.Drawing.Point(170, 400);
-            this.startServerBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.startServerBtn.Name = "startServerBtn";
-            this.startServerBtn.Size = new System.Drawing.Size(120, 30);
-            this.startServerBtn.TabIndex = 2;
-            this.startServerBtn.Text = "Start Server";
-            this.startServerBtn.UseVisualStyleBackColor = true;
-            this.startServerBtn.Click += new System.EventHandler(this.StartServer_Click);
-            // 
-            // stopServerBtn
-            // 
-            this.stopServerBtn.Location = new System.Drawing.Point(170, 450);
-            this.stopServerBtn.Name = "stopServerBtn";
-            this.stopServerBtn.Size = new System.Drawing.Size(120, 30);
-            this.stopServerBtn.TabIndex = 3;
-            this.stopServerBtn.Text = "Stop Server";
-            this.stopServerBtn.UseVisualStyleBackColor = true;
-            this.stopServerBtn.Click += new System.EventHandler(this.StopServer_Click);
-            // 
-            // onlineNumBtn
-            // 
-            this.onlineNumBtn.Location = new System.Drawing.Point(170, 500);
-            this.onlineNumBtn.Name = "onlineNumBtn";
-            this.onlineNumBtn.Size = new System.Drawing.Size(120, 30);
-            this.onlineNumBtn.TabIndex = 4;
-            this.onlineNumBtn.Text = "在线人数";
-            this.onlineNumBtn.UseVisualStyleBackColor = true;
-            this.onlineNumBtn.Click += new System.EventHandler(this.OnlineNum_Click);
-            // 
-            // MainForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 673);
-            this.Controls.Add(this.onlineNumBtn);
-            this.Controls.Add(this.stopServerBtn);
-            this.Controls.Add(this.startServerBtn);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.title);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "MainForm";
-            this.Text = "Winform+NetCore3.1+MongoDB";
-            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -212,8 +212,6 @@ namespace WinFormsApp1
         private void StartServer_Click(object sender, System.EventArgs e)
         {
             TcpChatServer.TCPChatServer.Run();
-
-            Debug.Print($"服务器启动");
         }
 
         private void StopServer_Click(object sender, EventArgs e)
@@ -223,18 +221,18 @@ namespace WinFormsApp1
             Debug.Print($"服务器停止");
         }
 
-        //public ServerRoomManager m_RoomManager;
-        //public ServerPlayerManager m_PlayerManager;
-
         private void OnlineNum_Click(object sender, EventArgs e)
         {
-            Debug.Print($"在线人数：");
+            Debug.Print($"在线人数：{TcpChatServer.TCPChatServer.m_PlayerManager.Count}");
         }
 
         #endregion
 
         private Label title;
-        private Button button1;
+        private Button connectBtn;
+        private Button startServerBtn;
+        private Button stopServerBtn;
+        private Button onlineNumBtn;
         private NotifyIcon notifyIcon1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem showToolStripMenuItem;
@@ -242,8 +240,5 @@ namespace WinFormsApp1
         private ToolStripMenuItem maxToolStripMenuItem;
         private ToolStripMenuItem windowToolStripMenuItem;
         private ToolStripMenuItem connectToolStripMenuItem;
-        private Button startServerBtn;
-        private Button stopServerBtn;
-        private Button onlineNumBtn;
     }
 }

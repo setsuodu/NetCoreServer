@@ -5,8 +5,9 @@ namespace NetCoreServer
     {
         //public readonly NetPeer AssociatedPeer;
 
-        public ServerPlayer(string userName, int peerid) : base(userName, peerid)
+        public ServerPlayer(string userName, System.Guid peerid) : base(userName, peerid)
         {
+
         }
     }
 }
