@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Code.Shared;
 
-namespace Code.Server
+namespace NetCoreServer
 {
     public class ServerPlayerManager
     {

@@ -1,4 +1,4 @@
-﻿namespace Code.Shared
+﻿namespace NetCoreServer
 {
     public abstract class BasePlayer
     {

@@ -1,6 +1,4 @@
-using Code.Shared;
-
-namespace Code.Server
+namespace NetCoreServer
 {
     /* ‘∂≥Ã”√ªß */
     public class ServerPlayer : BasePlayer

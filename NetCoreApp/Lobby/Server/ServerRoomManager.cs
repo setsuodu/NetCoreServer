@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Code.Server
+namespace NetCoreServer
 {
     public class ServerRoomManager
     {

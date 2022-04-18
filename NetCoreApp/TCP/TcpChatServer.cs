@@ -7,6 +7,7 @@ using NetCoreServer;
 
 namespace TcpChatServer
 {
+    /* 一个客户端连接单位 */
     public class ChatSession : TcpSession
     {
         public ChatSession(TcpServer server) : base(server) {}
@@ -32,12 +33,30 @@ namespace TcpChatServer
 
             // Multicast message to all connected sessions
             Server.Multicast(message);
+            //SendAsync(message);
 
             // If the buffer starts with '!' the disconnect the current session
-            if (message == "!")
-                Disconnect();
+            //if (message == "!")
+            //    Disconnect();
 
+            // 解析msgId
+            byte msgId = buffer[0];
+            byte[] body = new byte[buffer.Length - 1];
+            Array.Copy(buffer, 1, body, 0, buffer.Length - 1);
 
+            PacketType type = (PacketType)msgId;
+            Debug.Print($"msgId={msgId}");
+
+            switch (type)
+            {
+                case PacketType.C2S_LoginReq:
+                    HotFix.TheMsg msg = ProtobufferTool.Deserialize<HotFix.TheMsg>(body);
+                    Debug.Print($"[{type}] Name={msg.Name}, Content={msg.Content}");
+                    break;
+                case PacketType.C2S_MatchRequest:
+                    break;
+            }
+            //TODO: 通过委托分发出去
         }
 
         protected override void OnError(SocketError error)

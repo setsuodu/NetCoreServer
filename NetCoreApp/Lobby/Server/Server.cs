@@ -1,4 +1,4 @@
-﻿namespace Code.Server
+﻿namespace NetCoreServer
 {
     public class Server
     {

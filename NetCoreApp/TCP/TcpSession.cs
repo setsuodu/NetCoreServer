@@ -398,7 +398,7 @@ namespace NetCoreServer
             string message = string.Empty;
             if (length > 0)
             {
-                Google.Protobuf.Login msg2 = ProtobufferTool.Deserialize<Google.Protobuf.Login>(buffer);
+                HotFix.Login msg2 = ProtobufferTool.Deserialize<HotFix.Login>(buffer);
                 message = $"’À∫≈{msg2.Username}£¨√‹¬Î{msg2.Password}";
                 Debug.Print(message);
             }

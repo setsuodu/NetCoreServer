@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Code.Shared;
 
-namespace Code.Server
+namespace NetCoreServer
 {
     /* 远程房间 */
     public class ServerRoom : BaseRoom

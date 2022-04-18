@@ -65,6 +65,7 @@ namespace WinFormsApp1
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startServerBtn = new System.Windows.Forms.Button();
             this.stopServerBtn = new System.Windows.Forms.Button();
+            this.onlineNumBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,17 +76,17 @@ namespace WinFormsApp1
             this.title.Location = new System.Drawing.Point(170, 183);
             this.title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(118, 20);
+            this.title.Size = new System.Drawing.Size(120, 20);
             this.title.TabIndex = 0;
             this.title.Text = "NetCoreServer";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(180, 298);
+            this.button1.Location = new System.Drawing.Point(180, 280);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 27);
+            this.button1.Size = new System.Drawing.Size(96, 30);
             this.button1.TabIndex = 1;
             this.button1.Text = "连接";
             this.button1.UseVisualStyleBackColor = true;
@@ -114,39 +115,39 @@ namespace WinFormsApp1
             this.maxToolStripMenuItem,
             this.windowToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(128, 30);
             this.showToolStripMenuItem.Text = "显示";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
             // maxToolStripMenuItem
             // 
             this.maxToolStripMenuItem.Name = "maxToolStripMenuItem";
-            this.maxToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.maxToolStripMenuItem.Size = new System.Drawing.Size(150, 30);
             this.maxToolStripMenuItem.Text = "Max";
             // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(150, 30);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(128, 30);
             this.exitToolStripMenuItem.Text = "退出";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.connectToolStripMenuItem.Text = "连接DB";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.ConnectToolStripMenuItem_Click);
             // 
             // startServerBtn
             // 
-            this.startServerBtn.Location = new System.Drawing.Point(170, 420);
+            this.startServerBtn.Location = new System.Drawing.Point(170, 400);
             this.startServerBtn.Margin = new System.Windows.Forms.Padding(4);
             this.startServerBtn.Name = "startServerBtn";
             this.startServerBtn.Size = new System.Drawing.Size(120, 30);
@@ -157,7 +158,7 @@ namespace WinFormsApp1
             // 
             // stopServerBtn
             // 
-            this.stopServerBtn.Location = new System.Drawing.Point(170, 487);
+            this.stopServerBtn.Location = new System.Drawing.Point(170, 450);
             this.stopServerBtn.Name = "stopServerBtn";
             this.stopServerBtn.Size = new System.Drawing.Size(120, 30);
             this.stopServerBtn.TabIndex = 3;
@@ -165,11 +166,22 @@ namespace WinFormsApp1
             this.stopServerBtn.UseVisualStyleBackColor = true;
             this.stopServerBtn.Click += new System.EventHandler(this.StopServer_Click);
             // 
+            // onlineNumBtn
+            // 
+            this.onlineNumBtn.Location = new System.Drawing.Point(170, 500);
+            this.onlineNumBtn.Name = "onlineNumBtn";
+            this.onlineNumBtn.Size = new System.Drawing.Size(120, 30);
+            this.onlineNumBtn.TabIndex = 4;
+            this.onlineNumBtn.Text = "在线人数";
+            this.onlineNumBtn.UseVisualStyleBackColor = true;
+            this.onlineNumBtn.Click += new System.EventHandler(this.OnlineNum_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 673);
+            this.Controls.Add(this.onlineNumBtn);
             this.Controls.Add(this.stopServerBtn);
             this.Controls.Add(this.startServerBtn);
             this.Controls.Add(this.button1);
@@ -232,5 +244,6 @@ namespace WinFormsApp1
         private ToolStripMenuItem connectToolStripMenuItem;
         private Button startServerBtn;
         private Button stopServerBtn;
+        private Button onlineNumBtn;
     }
 }

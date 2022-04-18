@@ -7,7 +7,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Tutorial {
+namespace HotFix {
 
   /// <summary>Holder for reflection information generated from TheMsg.proto</summary>
   public static partial class TheMsgReflection {
@@ -22,12 +22,12 @@ namespace Tutorial {
     static TheMsgReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxUaGVNc2cucHJvdG8SCHR1dG9yaWFsIicKBlRoZU1zZxIMCgRuYW1lGAEg",
-            "ASgJEg8KB2NvbnRlbnQYAiABKAliBnByb3RvMw=="));
+            "CgxUaGVNc2cucHJvdG8iJwoGVGhlTXNnEgwKBG5hbWUYASABKAkSDwoHY29u",
+            "dGVudBgCIAEoCUIJqgIGSG90Rml4YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tutorial.TheMsg), global::Tutorial.TheMsg.Parser, new[]{ "Name", "Content" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::HotFix.TheMsg), global::HotFix.TheMsg.Parser, new[]{ "Name", "Content" }, null, null, null)
           }));
     }
     #endregion
@@ -41,7 +41,7 @@ namespace Tutorial {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tutorial.TheMsgReflection.Descriptor.MessageTypes[0]; }
+      get { return global::HotFix.TheMsgReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

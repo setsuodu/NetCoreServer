@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Shared
+namespace NetCoreServer
 {
     public class BaseRoom : IDisposable
     {
