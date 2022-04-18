@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-//using System.Threading.Tasks;
-//using MongoDB.Bson;
-//using MongoDB.Bson.Serialization.Attributes;
-//using MongoDB.Driver;
-//using MongoDB.Driver.Linq;
 using NetCoreServer.Utils;
 
 namespace WinFormsApp1
@@ -214,6 +209,14 @@ namespace WinFormsApp1
             TcpChatServer.TCPChatServer.Stop();
 
             Debug.Print($"服务器停止");
+        }
+
+        //public ServerRoomManager m_RoomManager;
+        //public ServerPlayerManager m_PlayerManager;
+
+        private void OnlineNum_Click(object sender, EventArgs e)
+        {
+            Debug.Print($"在线人数：");
         }
 
         #endregion

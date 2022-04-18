@@ -28,7 +28,7 @@ namespace TcpChatServer
         protected override void OnReceived(byte[] buffer, long offset, long size)
         {
             string message = Encoding.UTF8.GetString(buffer, (int)offset, (int)size);
-            Debug.Print("Incoming: " + message);
+            Debug.Print($"C2S: {message}({size})");
 
             // Multicast message to all connected sessions
             Server.Multicast(message);
@@ -36,6 +36,8 @@ namespace TcpChatServer
             // If the buffer starts with '!' the disconnect the current session
             if (message == "!")
                 Disconnect();
+
+
         }
 
         protected override void OnError(SocketError error)
