@@ -1,2 +1,2 @@
 # NetCoreServer
- a winform .net core server with MongoDB
+ a winform .net core server with MongoDB/MySQL
