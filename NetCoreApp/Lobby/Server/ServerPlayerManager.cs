@@ -4,13 +4,13 @@ namespace NetCoreServer
 {
     public class ServerPlayerManager
     {
+        protected List<ServerPlayer> playerList;
+        public int Count => playerList.Count;
+
         public ServerPlayerManager()
         {
             playerList = new List<ServerPlayer>();
         }
-
-        private List<ServerPlayer> playerList;
-        public int Count => playerList.Count;
 
         // 登录成功
         public void AddPlayer(ServerPlayer player)
@@ -21,7 +21,7 @@ namespace NetCoreServer
         // 登出/断线/踢人
         public void RemovePlayer(System.Guid peerId)
         {
-            var player = playerList.Find(x => x.SessionId == peerId);
+            var player = playerList.Find(x => x.PeerId == peerId);
             if (player == null) return;
             playerList.Remove(player);
         }
@@ -36,7 +36,7 @@ namespace NetCoreServer
         }
 
         // 获取指定玩家
-        public ServerPlayer GetPlayerByPeerId(short peerId)
+        public ServerPlayer GetPlayerByPeerId(System.Guid peerId)
         {
             var player = playerList.Find(x => x.PeerId == peerId);
             return player;

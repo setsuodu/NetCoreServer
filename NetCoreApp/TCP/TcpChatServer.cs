@@ -15,13 +15,13 @@ namespace TcpChatServer
         protected override void OnConnected()
         {
             Debug.Print($"Chat TCP session with Id {Id} connected!");
-            ServerPlayer p = new ServerPlayer(string.Empty, Id);
-            TCPChatServer.m_PlayerManager.AddPlayer(p);
-            //p.SetStatus(PlayerStatus.AtLobby);
+            //ServerPlayer p = new ServerPlayer(string.Empty, Id);
+            //TCPChatServer.m_PlayerManager.AddPlayer(p);
 
             // Send invite message
-            string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
-            SendAsync(message);
+            //string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
+            //SendAsync(message);
+            SendAsync("hello, you're connected");
         }
 
         protected override void OnDisconnected()
@@ -55,8 +55,15 @@ namespace TcpChatServer
             switch (type)
             {
                 case PacketType.C2S_LoginReq:
-                    HotFix.TheMsg msg = ProtobufferTool.Deserialize<HotFix.TheMsg>(body);
-                    Debug.Print($"[{type}] Name={msg.Name}, Content={msg.Content}");
+                    {
+                        HotFix.TheMsg msg = ProtobufferTool.Deserialize<HotFix.TheMsg>(body);
+                        Debug.Print($"[{type}] Name={msg.Name}, Content={msg.Content}");
+
+                        //TODO: SQL验证操作
+
+                        ServerPlayer p = new ServerPlayer(msg.Name, Id);
+                        TCPChatServer.m_PlayerManager.AddPlayer(p);
+                    }
                     break;
                 case PacketType.C2S_MatchRequest:
                     break;
@@ -131,7 +138,7 @@ namespace TcpChatServer
         {
             // Stop the server
             Debug.Print("Server stopping...");
-            server.Stop();
+            server?.Stop();
             Debug.Print("Done!");
         }
     }

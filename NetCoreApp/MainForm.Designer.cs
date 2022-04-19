@@ -5,25 +5,6 @@ using NetCoreServer.Utils;
 
 namespace WinFormsApp1
 {
-    public class User
-    {
-        //[BsonId]
-        //public ObjectId Id { get; set; }
-        public string name { get; set; }
-        public int number { get; set; }
-
-        public User()
-        {
-        }
-
-        public User(string name, int number)
-        {
-            //this.Id = id;
-            this.name = name;
-            this.number = number;
-        }
-    }
-
     partial class MainForm
     {
         /// <summary>
@@ -251,9 +232,6 @@ namespace WinFormsApp1
 
         private void OnlineNum_Click(object sender, EventArgs e)
         {
-            //var session = TcpChatServer.TCPChatServer.server.FindSession(Guid.NewGuid());
-            //session.Send("");
-
             var server = TcpChatServer.TCPChatServer.server;
             if (server == null)
             {
@@ -261,12 +239,10 @@ namespace WinFormsApp1
                 return;
             }
             string log1 = $"服务器状态={server.IsStarted}, 连接数={server.ConnectedSessions}";
-            Debug.Print(log1);
             string log2 = $"在线人数={TcpChatServer.TCPChatServer.m_PlayerManager.Count}";
-            Debug.Print(log2);
+            string log3 = $"{server.Endpoint.Address}:{server.Endpoint.Port}";
 
-            //this.onlineNumBtn.Text = log1 + "\n" + log2;
-            this.logText.Text = log1 + "\n" + log2;
+            this.logText.Text = $"{log1}\n{log2}\n{log3}";
         }
 
         #endregion
