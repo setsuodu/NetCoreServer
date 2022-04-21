@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using HotFix;
 
 namespace NetCoreServer
 {
@@ -398,7 +399,7 @@ namespace NetCoreServer
             string message = string.Empty;
             if (length > 0)
             {
-                HotFix.Login msg2 = ProtobufferTool.Deserialize<HotFix.Login>(buffer);
+                C2S_Login msg2 = ProtobufferTool.Deserialize<C2S_Login>(buffer);
                 message = $"’À∫≈{msg2.Username}£¨√‹¬Î{msg2.Password}";
                 Debug.Print(message);
             }

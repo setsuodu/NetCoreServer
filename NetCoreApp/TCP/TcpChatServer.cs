@@ -4,6 +4,7 @@ using System.Text;
 using System.Net.Sockets;
 using System.Diagnostics;
 using NetCoreServer;
+using HotFix;
 
 namespace TcpChatServer
 {
@@ -56,16 +57,14 @@ namespace TcpChatServer
             {
                 case PacketType.C2S_LoginReq:
                     {
-                        HotFix.TheMsg msg = ProtobufferTool.Deserialize<HotFix.TheMsg>(body);
-                        Debug.Print($"[{type}] Name={msg.Name}, Content={msg.Content}");
+                        C2S_Login msg = ProtobufferTool.Deserialize<C2S_Login>(body);
+                        Debug.Print($"[{type}] Name={msg.Username}, Pwd={msg.Username}");
 
                         //TODO: SQL验证操作
 
-                        ServerPlayer p = new ServerPlayer(msg.Name, Id);
+                        ServerPlayer p = new ServerPlayer(msg.Username, Id);
                         TCPChatServer.m_PlayerManager.AddPlayer(p);
                     }
-                    break;
-                case PacketType.C2S_MatchRequest:
                     break;
             }
             //TODO: 通过委托分发出去

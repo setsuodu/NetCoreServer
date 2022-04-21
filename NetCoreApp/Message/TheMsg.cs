@@ -23,11 +23,13 @@ namespace HotFix {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgxUaGVNc2cucHJvdG8iJwoGVGhlTXNnEgwKBG5hbWUYASABKAkSDwoHY29u",
-            "dGVudBgCIAEoCUIJqgIGSG90Rml4YgZwcm90bzM="));
+            "dGVudBgCIAEoCSIdCgpUaGVNc2dMaXN0Eg8KB2NvbnRlbnQYASADKAlCCaoC",
+            "BkhvdEZpeGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::HotFix.TheMsg), global::HotFix.TheMsg.Parser, new[]{ "Name", "Content" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::HotFix.TheMsg), global::HotFix.TheMsg.Parser, new[]{ "Name", "Content" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::HotFix.TheMsgList), global::HotFix.TheMsgList.Parser, new[]{ "Content" }, null, null, null)
           }));
     }
     #endregion
@@ -171,6 +173,118 @@ namespace HotFix {
           }
           case 18: {
             Content = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class TheMsgList : pb::IMessage<TheMsgList> {
+    private static readonly pb::MessageParser<TheMsgList> _parser = new pb::MessageParser<TheMsgList>(() => new TheMsgList());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<TheMsgList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::HotFix.TheMsgReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TheMsgList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TheMsgList(TheMsgList other) : this() {
+      content_ = other.content_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TheMsgList Clone() {
+      return new TheMsgList(this);
+    }
+
+    /// <summary>Field number for the "content" field.</summary>
+    public const int ContentFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_content_codec
+        = pb::FieldCodec.ForString(10);
+    private readonly pbc::RepeatedField<string> content_ = new pbc::RepeatedField<string>();
+    /// <summary>
+    /// string contentJson = 1;
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> Content {
+      get { return content_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as TheMsgList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(TheMsgList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!content_.Equals(other.content_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= content_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      content_.WriteTo(output, _repeated_content_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += content_.CalculateSize(_repeated_content_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(TheMsgList other) {
+      if (other == null) {
+        return;
+      }
+      content_.Add(other.content_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            content_.AddEntriesFrom(input, _repeated_content_codec);
             break;
           }
         }

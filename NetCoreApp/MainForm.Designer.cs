@@ -125,7 +125,6 @@ namespace WinFormsApp1
             this.logText.Size = new System.Drawing.Size(48, 20);
             this.logText.TabIndex = 6;
             this.logText.Text = "NULL";
-            this.logText.Click += new System.EventHandler(this.logText_Click);
             // 
             // notifyIcon1
             // 
