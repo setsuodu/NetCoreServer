@@ -17,7 +17,6 @@ namespace NetCoreServer
         public void SendAsync(PacketType msgId, object cmd)
         {
             byte[] header = new byte[1] { (byte)msgId };
-            //byte[] body = ProtobufferTool.Serialize(cmd);
             byte[] body = ProtobufHelper.ToBytes(cmd);
             byte[] buffer = new byte[header.Length + body.Length];
             System.Array.Copy(header, 0, buffer, 0, header.Length);
