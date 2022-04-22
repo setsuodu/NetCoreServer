@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using ET;
 using NetCoreServer.Utils;
 
 namespace WinFormsApp1
@@ -18,12 +20,14 @@ namespace WinFormsApp1
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            this.notifyIcon1.Dispose(); //清理托盘图标
+            TcpChatServer.TCPChatServer.Stop(); //执行速度较慢
+
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
-            this.notifyIcon1.Dispose(); //清理托盘图标
         }
 
         #region Windows Form Designer generated code
@@ -125,6 +129,7 @@ namespace WinFormsApp1
             this.logText.Size = new System.Drawing.Size(48, 20);
             this.logText.TabIndex = 6;
             this.logText.Text = "NULL";
+            this.logText.Click += new System.EventHandler(this.logText_Click);
             // 
             // notifyIcon1
             // 
@@ -206,7 +211,8 @@ namespace WinFormsApp1
         {
             //MongoDBTool mongo = new MongoDBTool();
             //mongo.Query();
-            TestQuery();
+            //TestQuery();
+            ReadClientData();
         }
 
         private async void TestQuery()
@@ -242,6 +248,26 @@ namespace WinFormsApp1
             string log3 = $"{server.Endpoint.Address}:{server.Endpoint.Port}";
 
             this.logText.Text = $"{log1}\n{log2}\n{log3}";
+        }
+
+        private void ReadClientData()
+        {
+            //尝试直接读取客户端保存的数据
+            try
+            {
+                string clientDataPath = @"C:\Users\Administrator\Desktop\ILRuntime_Proto3\byte[]对比_Client.txt";
+                byte[] clientData = FileHelper.ReadBytes(clientDataPath);
+                Debug.Print($"clientData: length={clientData.Length}");
+                //Debug.Print($"反序列化: obj={obj.Id}");
+
+                MemoryStream ms = new MemoryStream(clientData, 0, clientData.Length);
+                var obj = ProtobufHelper.FromStream(typeof(TheMsgList), ms) as TheMsgList;
+                Debug.Print($"反序列化: obj={obj.Content[1]}");
+            }
+            catch (Exception e)
+            {
+                Debug.Print($"error: {e.ToString()}");
+            }
         }
 
         #endregion
