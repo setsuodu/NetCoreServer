@@ -1,27 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace NetCoreServer
+namespace HotFix
 {
+    public class BaseRoomData
+    {
+        public const int MIN_PLAYERS = 2;   //最少人数
+        public const int MAX_PLAYERS = 5;   //最多人数
+
+        public int RoomID;                  //房间ID
+        public string RoomName;             //房间名
+        public string RoomPwd;              //密码
+        public int RoomLimit;               //限定人数
+
+        public BaseRoomData()
+        {
+            RoomID = -1;
+            RoomName = string.Empty;
+            RoomPwd = string.Empty;
+            RoomLimit = MIN_PLAYERS;
+        }
+    }
     public class BaseRoom : IDisposable
     {
-        public BaseRoom(int _roomid, BasePlayer host)
+        public BaseRoomData m_RoomData;
+
+        // 房主离开房间解散（简单做法）
+        public BaseRoom(BasePlayer host, BaseRoomData roomData)
         {
-            RoomID = _roomid;
+            m_RoomData = roomData;
         }
 
-        public const int MIN_PLAYERS = 2; //最少人数
-        public const int MAX_PLAYERS = 5; //最多人数
-        public readonly int RoomID; // 当前房间ID（1~65535）
-        public int Seed;            // 随机种子
-
-        // 一个房间必须满足有2个人(掉线?)
-        public virtual BasePlayer[] m_PlayerList { get; protected set; }
+        public virtual Dictionary<int, BasePlayer> m_PlayerList { get; protected set; } //int是座位号
         public virtual BasePlayer hostPlayer => m_PlayerList[0];
         public virtual void Dispose() { }
 
         public override string ToString()
         {
-            string str = $"房间#{RoomID}，";
+            string str = $"房间#{m_RoomData.RoomID}，";
             return str;
         }
     }

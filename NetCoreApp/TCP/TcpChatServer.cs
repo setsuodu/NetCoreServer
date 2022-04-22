@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using NetCoreServer;
 using ET;
+using HotFix;
 
 namespace TcpChatServer
 {
@@ -22,7 +23,8 @@ namespace TcpChatServer
             //string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
             //SendAsync(message);
 
-            SendAsync("hello, you're connected");
+            Empty cmd = new Empty();
+            SendAsync(PacketType.Connected, cmd); //TODO: 多个客户端，验证这是否为广播
         }
 
         protected override void OnDisconnected()
@@ -36,25 +38,9 @@ namespace TcpChatServer
         protected override void OnReceived(byte[] buffer, long offset, long size)
         {
             //Debug.Print($"OnReceived: length={buffer.Length}, offset={offset}, size={size}");
-            //byte[] realBuffer = new byte[size];
-            //Array.Copy(buffer, 0, realBuffer, 0, size);
-            Array.Resize<byte>(ref buffer, (int)size); //8192裁剪
 
-            //Debug.Print($"测试TheMsgList解析");
-            //FileHelper.WriteBytes(buffer);
-            //try
-            //{
-            //    byte[] clientData = buffer;
-            //    Debug.Print($"clientData: length={clientData.Length}");
-            //    MemoryStream ms = new MemoryStream(clientData, 0, clientData.Length);
-            //    var obj = ProtobufHelper.FromStream(typeof(TheMsgList), ms) as TheMsgList;
-            //    Debug.Print($"反序列化: obj={obj.Content[1]}");
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.Print($"error: {e.ToString()}");
-            //}
-            //return;
+            // 这里是异步线程中。
+            Array.Resize<byte>(ref buffer, (int)size); //8192裁剪
 
             // 解析msgId
             byte msgId = buffer[0];
@@ -62,17 +48,16 @@ namespace TcpChatServer
             Array.Copy(buffer, 1, body, 0, size - 1);
             PacketType type = (PacketType)msgId;
             Debug.Print($"msgType={type}, from {Id}");
-
             switch (type)
             {
-                //case PacketType.Connected:
-                //    break;
+                case PacketType.Connected:
+                    break;
                 case PacketType.C2S_LoginReq:
                     OnLoginReq(body);
                     break;
-                //case PacketType.C2S_Chat:
-                //    OnChat(body);
-                //    break;
+                case PacketType.C2S_Chat:
+                    OnChat(body);
+                    break;
             }
         }
 
@@ -81,12 +66,30 @@ namespace TcpChatServer
             Debug.Print($"Chat TCP session caught an error with code {error}");
         }
 
+        protected void SendAsync(PacketType msgId, object cmd)
+        {
+            byte[] header = new byte[1] { (byte)msgId };
+            byte[] body = ProtobufHelper.ToBytes(cmd);
+            byte[] buffer = new byte[header.Length + body.Length];
+            System.Array.Copy(header, 0, buffer, 0, header.Length);
+            System.Array.Copy(body, 0, buffer, header.Length, body.Length);
+            //Debug.Print($"header:{header.Length},body:{body.Length},buffer:{buffer.Length},");
+            SendAsync(buffer);
+        }
+
         protected async void OnLoginReq(byte[] body)
         {
             Debug.Print($"OnLoginReq: length={body.Length}");
             MemoryStream ms = new MemoryStream(body, 0, body.Length);
-            var obj = ProtobufHelper.FromStream(typeof(TheMsgList), ms) as TheMsgList;
-            Debug.Print($"反序列化: Id={obj.Id}, count={obj.Content.Count}");
+            var request = ProtobufHelper.FromStream(typeof(C2S_Login), ms) as C2S_Login;
+            Debug.Print($"OnLoginReq: usr={request.Username}, pwd={request.Password}");
+
+            ServerPlayer p = new ServerPlayer(request.Username, Id);
+
+            //TODO: await DB_Query();
+
+            S2C_Login packet = new S2C_Login { Code = 0, Nickname = "TODO:查询数据库得到" };
+            p.SendAsync(PacketType.S2C_LoginResult, packet);
         }
         protected void OnChat(byte[] body) { }
     }
