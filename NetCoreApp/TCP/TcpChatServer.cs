@@ -45,17 +45,20 @@ namespace TcpChatServer
             byte msgId = buffer[0];
             byte[] body = new byte[size - 1];
             Array.Copy(buffer, 1, body, 0, size - 1);
+
+            MemoryStream ms = new MemoryStream(body, 0, body.Length);
             PacketType type = (PacketType)msgId;
             Debug.Print($"msgType={type}, from {Id}");
+
             switch (type)
             {
                 case PacketType.Connected:
                     break;
                 case PacketType.C2S_LoginReq:
-                    OnLoginReq(body);
+                    OnLoginReq(ms);
                     break;
                 case PacketType.C2S_Chat:
-                    OnChat(body);
+                    OnChat(ms);
                     break;
             }
         }
@@ -76,21 +79,23 @@ namespace TcpChatServer
             SendAsync(buffer);
         }
 
-        protected async void OnLoginReq(byte[] body)
+        protected async void OnLoginReq(MemoryStream ms)
         {
-            Debug.Print($"OnLoginReq: length={body.Length}");
-            MemoryStream ms = new MemoryStream(body, 0, body.Length);
-            var request = ProtobufHelper.FromStream(typeof(C2S_Login), ms) as C2S_Login;
+            var request = ProtobufHelper.Deserialize<C2S_Login>(ms); //解包
+            if (request == null)
+            {
+                Debug.Print("OnLoginReq.空数据");
+                return;
+            }
+
             Debug.Print($"OnLoginReq: usr={request.Username}, pwd={request.Password}");
 
             ServerPlayer p = new ServerPlayer(request.Username, Id);
 
-            //TODO: await DB_Query();
-
             S2C_Login packet = new S2C_Login { Code = 0, Nickname = "TODO:查询数据库得到" };
             p.SendAsync(PacketType.S2C_LoginResult, packet);
         }
-        protected void OnChat(byte[] body) { }
+        protected void OnChat(MemoryStream ms) { }
     }
 
     public class ChatServer : TcpServer
